@@ -1,0 +1,206 @@
+{
+  "formId": "feedback_and_registration",
+  "title": "Feedback & Registration",
+  "version": 1,
+  "fields": [
+    {
+      "id": "fullName",
+      "label": "Full Name",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 80
+      }
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "regex": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+      }
+    },
+    {
+      "id": "contactPhone",
+      "label": "Contact Phone",
+      "type": "phone",
+      "required": true,
+      "validators": {}
+    },
+    {
+      "id": "category",
+      "label": "Category",
+      "type": "dropdown",
+      "required": true,
+      "options": ["Support", "Feedback", "Partnership", "Other"],
+      "validators": {}
+    },
+    {
+      "id": "categoryOther",
+      "label": "Please specify (if Other)",
+      "type": "text",
+      "required": false,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    {
+      "id": "priority",
+      "label": "Priority",
+      "type": "radio",
+      "required": true,
+      "options": ["Low", "Medium", "High", "Urgent"],
+      "validators": {}
+    },
+    {
+      "id": "quantity",
+      "label": "Quantity (if applicable)",
+      "type": "number",
+      "required": false,
+      "validators": {
+        "min": 1,
+        "max": 99,
+        "integerOnly": true
+      }
+    },
+    {
+      "id": "satisfaction",
+      "label": "Satisfaction (0 = low, 10 = high)",
+      "type": "slider",
+      "required": false,
+      "defaultValue": 5,
+      "validators": {
+        "min": 0,
+        "max": 10,
+        "integerOnly": true
+      }
+    },
+    {
+      "id": "preferredDate",
+      "label": "Preferred Contact Date",
+      "type": "date",
+      "required": false,
+      "validators": {
+        "dateMin": "2025-01-01",
+        "dateMax": "2026-12-31"
+      }
+    },
+    {
+      "id": "subscribeNewsletter",
+      "label": "I agree to receive updates and newsletter",
+      "type": "checkbox",
+      "required": false,
+      "validators": {}
+    },
+    {
+      "id": "urgentNote",
+      "label": "Urgent / Support note (shown for Support or Feedback)",
+      "type": "text",
+      "required": false,
+      "validators": {
+        "maxLength": 150
+      }
+    },
+    {
+      "id": "message",
+      "label": "Your Message",
+      "type": "multiline",
+      "required": true,
+      "validators": {
+        "minLength": 10,
+        "maxLength": 1000
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "show_category_other",
+      "when": {
+        "fieldId": "category",
+        "operator": "==",
+        "value": "Other"
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "categoryOther",
+          "value": true
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "categoryOther",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "categoryOther",
+          "value": false
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "categoryOther",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "show_quantity_for_support",
+      "when": {
+        "fieldId": "category",
+        "operator": "==",
+        "value": "Support"
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "quantity",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "quantity",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "show_urgent_note_or",
+      "when": {
+        "operator": "or",
+        "conditions": [
+          {
+            "fieldId": "category",
+            "operator": "==",
+            "value": "Support"
+          },
+          {
+            "fieldId": "category",
+            "operator": "==",
+            "value": "Feedback"
+          }
+        ]
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "urgentNote",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "urgentNote",
+          "value": false
+        }
+      ]
+    }
+  ]
+}

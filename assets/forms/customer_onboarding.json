@@ -1,0 +1,198 @@
+{
+  "formId": "new_connection_request",
+  "title": "New Connection Request",
+  "version": 1,
+  "fields": [
+    {
+      "id": "accountType",
+      "label": "Connection Type",
+      "type": "dropdown",
+      "required": true,
+      "options": ["Personal", "Business"],
+      "validators": {}
+    },
+    {
+      "id": "fullName",
+      "label": "Full Name",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "regex": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+      }
+    },
+    {
+      "id": "phone",
+      "label": "Contact Phone",
+      "type": "phone",
+      "required": true,
+      "validators": {}
+    },
+    {
+      "id": "companyName",
+      "label": "Company Name",
+      "type": "text",
+      "required": false,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    {
+      "id": "planType",
+      "label": "Plan Type",
+      "type": "dropdown",
+      "required": true,
+      "options": ["Prepaid", "Postpaid"],
+      "validators": {}
+    },
+    {
+      "id": "dataAddOn",
+      "label": "Data add-on (GB)",
+      "type": "number",
+      "required": false,
+      "validators": {
+        "min": 1,
+        "max": 50,
+        "integerOnly": true
+      }
+    },
+    {
+      "id": "premiumBusinessNote",
+      "label": "Premium offer note (Business + Postpaid only)",
+      "type": "text",
+      "required": false,
+      "validators": {
+        "maxLength": 200
+      }
+    },
+    {
+      "id": "contactPreference",
+      "label": "Preferred Contact Method",
+      "type": "radio",
+      "required": true,
+      "options": ["Email", "Phone", "SMS", "WhatsApp"],
+      "validators": {}
+    },
+    {
+      "id": "callbackDate",
+      "label": "Preferred Callback Date",
+      "type": "date",
+      "required": false,
+      "validators": {}
+    },
+    {
+      "id": "acceptTerms",
+      "label": "I accept the terms and conditions",
+      "type": "checkbox",
+      "required": true,
+      "validators": {}
+    },
+    {
+      "id": "notes",
+      "label": "Additional Notes",
+      "type": "multiline",
+      "required": false,
+      "validators": {
+        "maxLength": 500
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "show_company_for_business",
+      "when": {
+        "fieldId": "accountType",
+        "operator": "==",
+        "value": "Business"
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "companyName",
+          "value": true
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "companyName",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "companyName",
+          "value": false
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "companyName",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "show_data_addon_for_postpaid",
+      "when": {
+        "fieldId": "planType",
+        "operator": "==",
+        "value": "Postpaid"
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "dataAddOn",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "dataAddOn",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "show_premium_note_and",
+      "when": {
+        "operator": "and",
+        "conditions": [
+          {
+            "fieldId": "accountType",
+            "operator": "==",
+            "value": "Business"
+          },
+          {
+            "fieldId": "planType",
+            "operator": "==",
+            "value": "Postpaid"
+          }
+        ]
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "premiumBusinessNote",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "premiumBusinessNote",
+          "value": false
+        }
+      ]
+    }
+  ]
+}

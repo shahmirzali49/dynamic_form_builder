@@ -1,0 +1,201 @@
+{
+  "formId": "travel_request",
+  "title": "Travel Request Form",
+  "version": 1,
+  "fields": [
+    {
+      "id": "employeeName",
+      "label": "Employee Name",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    {
+      "id": "employeeId",
+      "label": "Employee ID",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "minLength": 1,
+        "maxLength": 20
+      }
+    },
+    {
+      "id": "emergencyPhone",
+      "label": "Emergency Contact Phone",
+      "type": "phone",
+      "required": true,
+      "validators": {}
+    },
+    {
+      "id": "department",
+      "label": "Department",
+      "type": "dropdown",
+      "required": true,
+      "options": ["Engineering", "Sales", "Marketing", "HR", "Operations"],
+      "validators": {}
+    },
+    {
+      "id": "purpose",
+      "label": "Purpose of Travel",
+      "type": "dropdown",
+      "required": true,
+      "options": ["Client Meeting", "Conference", "Training", "Project Site", "Other"],
+      "validators": {}
+    },
+    {
+      "id": "purposeOther",
+      "label": "Please specify (if Other)",
+      "type": "text",
+      "required": false,
+      "validators": {
+        "maxLength": 200
+      }
+    },
+    {
+      "id": "destination",
+      "label": "Destination",
+      "type": "text",
+      "required": true,
+      "validators": {
+        "minLength": 2,
+        "maxLength": 100
+      }
+    },
+    {
+      "id": "travelDate",
+      "label": "Travel Date",
+      "type": "date",
+      "required": true,
+      "validators": {
+        "dateMin": "2024-01-01",
+        "dateMax": "2026-12-31"
+      }
+    },
+    {
+      "id": "returnDate",
+      "label": "Return Date",
+      "type": "date",
+      "required": true,
+      "validators": {
+        "dateMin": "2024-01-01",
+        "dateMax": "2026-12-31"
+      }
+    },
+    {
+      "id": "transportType",
+      "label": "Transportation Type",
+      "type": "radio",
+      "required": true,
+      "options": ["Flight", "Train", "Car", "Other"],
+      "validators": {}
+    },
+    {
+      "id": "estimatedBudget",
+      "label": "Estimated Budget (USD)",
+      "type": "number",
+      "required": true,
+      "validators": {
+        "min": 0,
+        "integerOnly": false
+      }
+    },
+    {
+      "id": "tripPriority",
+      "label": "Trip Priority (1 = low, 10 = urgent)",
+      "type": "slider",
+      "required": false,
+      "defaultValue": 5,
+      "validators": {
+        "min": 1,
+        "max": 10,
+        "integerOnly": true
+      }
+    },
+    {
+      "id": "approvalRequired",
+      "label": "Requires Director Approval (budget > $5000)",
+      "type": "checkbox",
+      "required": false,
+      "validators": {}
+    },
+    {
+      "id": "additionalInfo",
+      "label": "Additional Information",
+      "type": "multiline",
+      "required": false,
+      "validators": {
+        "maxLength": 1000
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "show_purpose_other",
+      "when": {
+        "fieldId": "purpose",
+        "operator": "==",
+        "value": "Other"
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "purposeOther",
+          "value": true
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "purposeOther",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "purposeOther",
+          "value": false
+        },
+        {
+          "action": "setRequired",
+          "targetFieldId": "purposeOther",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "budget_approval_requirement",
+      "when": {
+        "fieldId": "estimatedBudget",
+        "operator": ">",
+        "value": 5000
+      },
+      "then": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "approvalRequired",
+          "value": true
+        },
+        {
+          "action": "setValue",
+          "targetFieldId": "approvalRequired",
+          "value": true
+        }
+      ],
+      "else": [
+        {
+          "action": "setVisible",
+          "targetFieldId": "approvalRequired",
+          "value": false
+        },
+        {
+          "action": "setValue",
+          "targetFieldId": "approvalRequired",
+          "value": false
+        }
+      ]
+    }
+  ]
+}
