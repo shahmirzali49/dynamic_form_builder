@@ -1,0 +1,92 @@
+import 'package:dynamic_form_builer/domain/usecases/apply_rules_and_validate_use_case.dart';
+import 'package:dynamic_form_builer/domain/usecases/get_submission_payload_use_case.dart';
+import 'package:dynamic_form_builer/domain/usecases/load_form_use_case.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'form_state.dart';
+
+class FormCubit extends Cubit<FormState> {
+  FormCubit(
+    this._loadFormUseCase,
+    this._applyRulesAndValidateUseCase,
+    this._getSubmissionPayloadUseCase,
+  ) : super(const FormState());
+
+  final LoadFormUseCase _loadFormUseCase;
+  final ApplyRulesAndValidateUseCase _applyRulesAndValidateUseCase;
+  final GetSubmissionPayloadUseCase _getSubmissionPayloadUseCase;
+
+  Future<void> loadForm(String assetPath) async {
+    emit(state.copyWith(isLoading: true, loadError: null));
+    try {
+      final result = await _loadFormUseCase(assetPath);
+      emit(
+        FormState(
+          form: result.form,
+          values: result.ruleResult.values,
+          visibility: result.ruleResult.visibility,
+          requiredFlags: result.ruleResult.requiredFlags,
+          optionsOverrides: result.ruleResult.options,
+          isLoading: false,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, loadError: e.toString()));
+    }
+  }
+
+  void setValue(String fieldId, dynamic value) {
+    final form = state.form;
+    if (form == null) return;
+    final newValues = Map<String, dynamic>.from(state.values)
+      ..[fieldId] = value;
+    final applyResult = _applyRulesAndValidateUseCase(form, newValues);
+    final touched = Set<String>.from(state.touchedFields)..add(fieldId);
+    emit(
+      state.copyWith(
+        values: applyResult.ruleResult.values,
+        visibility: applyResult.ruleResult.visibility,
+        requiredFlags: applyResult.ruleResult.requiredFlags,
+        optionsOverrides: applyResult.ruleResult.options,
+        errors: applyResult.errors,
+        submitError: null,
+        clearSubmissionResult: true,
+        touchedFields: touched,
+      ),
+    );
+  }
+
+  void touchField(String fieldId) {
+    if (state.touchedFields.contains(fieldId)) return;
+    emit(
+      state.copyWith(
+        touchedFields: Set<String>.from(state.touchedFields)..add(fieldId),
+      ),
+    );
+  }
+
+  void submit() {
+    final form = state.form;
+    if (form == null) return;
+    final applyResult = _applyRulesAndValidateUseCase(form, state.values);
+    if (applyResult.errors.isNotEmpty) {
+      emit(
+        state.copyWith(
+          errors: applyResult.errors,
+          submitError: 'Please fix the errors below.',
+          clearSubmissionResult: true,
+          submittedOnce: true,
+        ),
+      );
+      return;
+    }
+    final payload = _getSubmissionPayloadUseCase.getSubmissionPayload(
+      form: form,
+      values: applyResult.ruleResult.values,
+      visibility: applyResult.ruleResult.visibility,
+    );
+    emit(
+      state.copyWith(errors: {}, submitError: null, submissionResult: payload),
+    );
+  }
+}

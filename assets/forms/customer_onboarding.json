@@ -88,7 +88,10 @@
       "label": "Preferred Callback Date",
       "type": "date",
       "required": false,
-      "validators": {}
+      "validators": {
+        "dateMin": "2024-01-01",
+        "dateMax": "2026-12-31"
+      }
     },
     {
       "id": "acceptTerms",
