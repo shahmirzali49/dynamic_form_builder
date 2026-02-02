@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:dynamic_form_builer/core/widgets/theme_toggle_button.dart';
+import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
 import 'package:dynamic_form_builer/domain/usecases/apply_rules_and_validate_use_case.dart';
 import 'package:dynamic_form_builer/domain/usecases/get_submission_payload_use_case.dart';
 import 'package:dynamic_form_builer/domain/usecases/load_form_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/entities/submission_payload.dart';
 import '../../domain/repositories/form_repository.dart';
 import '../cubit/form_cubit.dart';
@@ -99,7 +100,7 @@ class _FormView extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     FilledButton.icon(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back_rounded, size: 20),
                       label: const Text('Back'),
                     ),

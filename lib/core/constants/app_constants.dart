@@ -1,9 +1,4 @@
-class FormInfo {
-  final String title;
-  final String assetPath;
-
-  const FormInfo({required this.title, required this.assetPath});
-}
+import 'package:dynamic_form_builer/core/models/form_info.dart';
 
 class AppConstants {
   AppConstants._();
@@ -14,14 +9,17 @@ class AppConstants {
     FormInfo(
       title: 'New Connection Request',
       assetPath: 'assets/forms/customer_onboarding.json',
+      urlName: 'customer_onboarding',
     ),
     FormInfo(
       title: 'Travel Request',
       assetPath: 'assets/forms/travel_request.json',
+      urlName: 'travel_request',
     ),
     FormInfo(
       title: 'Feedback & Registration',
       assetPath: 'assets/forms/feedback_and_registration.json',
+      urlName: 'feedback_and_registration',
     ),
   ];
 }

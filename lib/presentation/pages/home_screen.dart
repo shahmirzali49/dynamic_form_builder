@@ -1,10 +1,11 @@
-import 'package:dynamic_form_builer/core/widgets/theme_toggle_button.dart';
-import 'package:dynamic_form_builer/presentation/pages/form_screen.dart';
+import 'package:dynamic_form_builer/core/constants/app_constants.dart';
+import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
+import 'package:dynamic_form_builer/core/navigation/app_router.dart';
+import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
 import 'package:dynamic_form_builer/presentation/widgets/form_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../core/constants/app_constants.dart';
-import '../../core/extensions/context_extensions.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -62,26 +63,8 @@ class HomeScreen extends StatelessWidget {
                       child: FormCard(
                         title: formInfo.title,
                         subtitle: 'Load form from ${formInfo.assetPath}',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, _, __) =>
-                                  FormScreen(assetPath: formInfo.assetPath),
-                              transitionDuration: Duration.zero,
-                              reverseTransitionDuration: const Duration(
-                                milliseconds: 150,
-                              ),
-                              transitionsBuilder:
-                                  (
-                                    context,
-                                    animation,
-                                    secondaryAnimation,
-                                    child,
-                                  ) => child,
-                            ),
-                          );
-                        },
+                        onTap: () =>
+                            context.push(AppRouter.formPath(formInfo.urlName)),
                       ),
                     );
                   }),

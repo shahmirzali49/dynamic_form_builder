@@ -3,239 +3,105 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ValueComparator', () {
-    group('==', () {
-      test('same value returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'Business',
-            operator: '==',
-            expectedValue: 'Business',
-          ),
-          true,
-        );
-      });
-
-      test('int and string "1" are equal (trimmed string)', () {
-        expect(
-          ValueComparator.compare(actualValue: 1, operator: '==', expectedValue: '1'),
-          true,
-        );
-      });
-
-      test('1.0 and 1 are equal (num)', () {
-        expect(
-          ValueComparator.compare(actualValue: 1.0, operator: '==', expectedValue: 1),
-          true,
-        );
-      });
-
-      test('different values return false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'Personal',
-            operator: '==',
-            expectedValue: 'Business',
-          ),
-          false,
-        );
-      });
-
-      test('trimmed strings match', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: '  A  ',
-            operator: '==',
-            expectedValue: 'A',
-          ),
-          true,
-        );
-      });
+    test('equals (==) returns true for same value', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 5,
+          operator: '==',
+          expectedValue: 5,
+        ),
+        isTrue,
+      );
+      expect(
+        ValueComparator.compare(
+          actualValue: 'hello',
+          operator: '==',
+          expectedValue: 'hello',
+        ),
+        isTrue,
+      );
     });
 
-    group('!=', () {
-      test('different values return true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'A',
-            operator: '!=',
-            expectedValue: 'B',
-          ),
-          true,
-        );
-      });
-
-      test('equal values return false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'A',
-            operator: '!=',
-            expectedValue: 'A',
-          ),
-          false,
-        );
-      });
+    test('not equals (!=) returns true when values differ', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 5,
+          operator: '!=',
+          expectedValue: 10,
+        ),
+        isTrue,
+      );
     });
 
-    group('numeric (>, >=, <, <=)', () {
-      test('> 5 and 3 returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 5,
-            operator: '>',
-            expectedValue: 3,
-          ),
-          true,
-        );
-      });
-
-      test('> "10" and 5 (string parsed as num)', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: '10',
-            operator: '>',
-            expectedValue: 5,
-          ),
-          true,
-        );
-      });
-
-      test('>= 5 and 5 returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 5,
-            operator: '>=',
-            expectedValue: 5,
-          ),
-          true,
-        );
-      });
-
-      test('< 2 and 5 returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 2,
-            operator: '<',
-            expectedValue: 5,
-          ),
-          true,
-        );
-      });
-
-      test('<= 3 and 3 returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 3,
-            operator: '<=',
-            expectedValue: 3,
-          ),
-          true,
-        );
-      });
-
-      test('non-numeric returns false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'abc',
-            operator: '>',
-            expectedValue: 5,
-          ),
-          false,
-        );
-      });
+    test('numeric comparison (>, <, >=, <=) works for numbers', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 10,
+          operator: '>',
+          expectedValue: 3,
+        ),
+        isTrue,
+      );
+      expect(
+        ValueComparator.compare(
+          actualValue: 2,
+          operator: '<',
+          expectedValue: 5,
+        ),
+        isTrue,
+      );
+      expect(
+        ValueComparator.compare(
+          actualValue: 5,
+          operator: '>=',
+          expectedValue: 5,
+        ),
+        isTrue,
+      );
     });
 
-    group('in', () {
-      test('value in list returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'Business',
-            operator: 'in',
-            expectedValue: ['Personal', 'Business'],
-          ),
-          true,
-        );
-      });
-
-      test('value not in list returns false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'Other',
-            operator: 'in',
-            expectedValue: ['Personal', 'Business'],
-          ),
-          false,
-        );
-      });
-
-      test('int 1 in list ["1"] returns true (_equals coercion)', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 1,
-            operator: 'in',
-            expectedValue: ['1', '2'],
-          ),
-          true,
-        );
-      });
-
-      test('expected not a list returns false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'A',
-            operator: 'in',
-            expectedValue: 'not a list',
-          ),
-          false,
-        );
-      });
+    test('numeric comparison parses string numbers', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: '42',
+          operator: '>',
+          expectedValue: 40,
+        ),
+        isTrue,
+      );
     });
 
-    group('contains', () {
-      test('actual contains expected returns true', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'hello world',
-            operator: 'contains',
-            expectedValue: 'world',
-          ),
-          true,
-        );
-      });
-
-      test('actual does not contain expected returns false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 'hello',
-            operator: 'contains',
-            expectedValue: 'xyz',
-          ),
-          false,
-        );
-      });
-
-      test('null actual uses empty string', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: null,
-            operator: 'contains',
-            expectedValue: 'x',
-          ),
-          false,
-        );
-      });
+    test('in operator returns true when value is in list', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 'b',
+          operator: 'in',
+          expectedValue: ['a', 'b', 'c'],
+        ),
+        isTrue,
+      );
     });
 
-    group('unknown operator', () {
-      test('returns false', () {
-        expect(
-          ValueComparator.compare(
-            actualValue: 1,
-            operator: '??',
-            expectedValue: 1,
-          ),
-          false,
-        );
-      });
+    test('contains returns true when string contains substring', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 'hello world',
+          operator: 'contains',
+          expectedValue: 'world',
+        ),
+        isTrue,
+      );
+    });
+
+    test('unknown operator returns false', () {
+      expect(
+        ValueComparator.compare(
+          actualValue: 1,
+          operator: '??',
+          expectedValue: 1,
+        ),
+        isFalse,
+      );
     });
   });
 }

@@ -19,6 +19,7 @@ class AppTextTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: onSurface,
+        
       ),
       titleMedium: TextStyle(
         fontSize: 16,
