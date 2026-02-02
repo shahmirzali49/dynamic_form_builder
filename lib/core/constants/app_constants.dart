@@ -3,8 +3,6 @@ import 'package:dynamic_form_builer/core/models/form_info.dart';
 class AppConstants {
   AppConstants._();
 
-  static const String appTitle = 'Dynamic Form Builder';
-
   static const List<FormInfo> forms = [
     FormInfo(
       title: 'New Connection Request',

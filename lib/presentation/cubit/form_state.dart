@@ -13,7 +13,6 @@ class FormState extends Equatable {
   final Map<String, List<String>> optionsOverrides;
   final bool isLoading;
   final String? loadError;
-  final String? submitError;
 
   final SubmissionPayload? submissionResult;
   final Set<String> touchedFields;
@@ -28,7 +27,6 @@ class FormState extends Equatable {
     this.optionsOverrides = const {},
     this.isLoading = false,
     this.loadError,
-    this.submitError,
     this.submissionResult,
     this.touchedFields = const <String>{},
     this.submittedOnce = false,
@@ -52,6 +50,7 @@ class FormState extends Equatable {
 
   bool isVisible(String fieldId) => visibility[fieldId] ?? true;
 
+  /// Shows error for a field only after submit or after the user has touched that field.
   String? getDisplayError(String fieldId) {
     if (!errors.containsKey(fieldId)) return null;
     if (submittedOnce || touchedFields.contains(fieldId)) {
@@ -69,8 +68,9 @@ class FormState extends Equatable {
     Map<String, List<String>>? optionsOverrides,
     bool? isLoading,
     String? loadError,
-    String? submitError,
     SubmissionPayload? submissionResult,
+
+    /// When true, submission result is cleared (e.g. after a new value change).
     bool clearSubmissionResult = false,
     Set<String>? touchedFields,
     bool? submittedOnce,
@@ -84,7 +84,6 @@ class FormState extends Equatable {
       optionsOverrides: optionsOverrides ?? this.optionsOverrides,
       isLoading: isLoading ?? this.isLoading,
       loadError: loadError ?? this.loadError,
-      submitError: submitError ?? this.submitError,
       submissionResult: clearSubmissionResult
           ? null
           : (submissionResult ?? this.submissionResult),
@@ -103,7 +102,6 @@ class FormState extends Equatable {
     optionsOverrides,
     isLoading,
     loadError,
-    submitError,
     submissionResult,
     touchedFields,
     submittedOnce,

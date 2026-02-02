@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'form_state.dart';
 
+/// Manages form state: load form, update values (and re-run rules + validation), touch fields, submit.
 class FormCubit extends Cubit<FormState> {
   FormCubit(
     this._loadFormUseCase,
@@ -35,6 +36,7 @@ class FormCubit extends Cubit<FormState> {
     }
   }
 
+  /// Updates one field, re-applies rules and validation, then emits new state.
   void setValue(String fieldId, dynamic value) {
     final form = state.form;
     if (form == null) return;
@@ -49,7 +51,6 @@ class FormCubit extends Cubit<FormState> {
         requiredFlags: applyResult.ruleResult.requiredFlags,
         optionsOverrides: applyResult.ruleResult.options,
         errors: applyResult.errors,
-        submitError: null,
         clearSubmissionResult: true,
         touchedFields: touched,
       ),
@@ -65,6 +66,7 @@ class FormCubit extends Cubit<FormState> {
     );
   }
 
+  /// Validates; on success builds and stores submission payload.
   void submit() {
     final form = state.form;
     if (form == null) return;
@@ -73,7 +75,6 @@ class FormCubit extends Cubit<FormState> {
       emit(
         state.copyWith(
           errors: applyResult.errors,
-          submitError: 'Fix the errors below.',
           clearSubmissionResult: true,
           submittedOnce: true,
         ),
@@ -85,8 +86,6 @@ class FormCubit extends Cubit<FormState> {
       values: applyResult.ruleResult.values,
       visibility: applyResult.ruleResult.visibility,
     );
-    emit(
-      state.copyWith(errors: {}, submitError: null, submissionResult: payload),
-    );
+    emit(state.copyWith(errors: {}, submissionResult: payload));
   }
 }

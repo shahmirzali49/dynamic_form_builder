@@ -4,6 +4,7 @@ import 'package:dynamic_form_builer/domain/rule_engine/rule_application_result.d
 import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
 import 'package:dynamic_form_builer/domain/entities/rule_entity.dart';
 
+/// Applies all rules in order: evaluates each condition, then runs then/else actions to update visibility, required, values, options.
 class RuleApplier {
   RuleApplier._();
 
@@ -19,6 +20,7 @@ class RuleApplier {
     );
     final Map<String, List<String>> options = {};
 
+    // Start from default: all visible, required from field config.
     for (final FieldEntity f in fields) {
       visibility[f.id] = true;
       requiredFlags[f.id] = f.required;

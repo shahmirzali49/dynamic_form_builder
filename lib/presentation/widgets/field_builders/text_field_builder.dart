@@ -1,7 +1,6 @@
 import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
 import 'package:flutter/material.dart';
 
-
 class TextFieldBuilder extends StatelessWidget {
   const TextFieldBuilder({
     super.key,
@@ -20,10 +19,7 @@ class TextFieldBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: value,
-      decoration: InputDecoration(
-        labelText: field.label,
-        errorText: error,
-      ),
+      decoration: InputDecoration(labelText: field.label, errorText: error),
       onChanged: onChanged,
       maxLength: field.validators['maxLength'] as int?,
     );

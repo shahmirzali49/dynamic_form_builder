@@ -62,6 +62,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'Error';
 
   @override
+  String get ok => 'OK';
+
+  @override
   String get goToHome => 'Go to Home';
 
   @override

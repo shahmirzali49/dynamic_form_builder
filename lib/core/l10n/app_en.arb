@@ -29,6 +29,7 @@
   },
   "pageNotFound": "Page not found",
   "error": "Error",
+  "ok": "OK",
   "goToHome": "Go to Home",
   "switchToLightMode": "Switch to light mode",
   "switchToDarkMode": "Switch to dark mode",

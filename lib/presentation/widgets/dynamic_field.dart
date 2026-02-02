@@ -39,6 +39,7 @@ class DynamicField extends StatelessWidget {
       options: options,
       onChanged: onChanged,
     );
+    // Date picker handles its own “touch”; for others we use focus loss to mark field as touched.
     if (onTouched != null && field.type != FieldType.date) {
       return Focus(
         onFocusChange: (hasFocus) {

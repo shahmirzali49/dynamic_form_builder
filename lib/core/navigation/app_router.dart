@@ -1,10 +1,10 @@
 import 'package:dynamic_form_builer/core/ui/screens/not_found_screen.dart';
 import 'package:dynamic_form_builer/core/utils/form_utils.dart';
-import 'package:dynamic_form_builer/presentation/pages/form_screen.dart';
-import 'package:dynamic_form_builer/presentation/pages/home_screen.dart';
+import 'package:dynamic_form_builer/presentation/screens/form_screen.dart';
+import 'package:dynamic_form_builer/presentation/screens/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
-
+/// Declares app routes: home and dynamic form by URL name (form name must exist in AppConstants).
 class AppRouter {
   AppRouter._();
 
@@ -15,7 +15,7 @@ class AppRouter {
 
   static final GoRouter router = GoRouter(
     initialLocation: home,
-    debugLogDiagnostics: true,
+    // debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: home,
@@ -30,6 +30,7 @@ class AppRouter {
           final assetPath = formName != null
               ? FormUtils.getAssetPathForFormName(formName)
               : null;
+          // Unknown form name shows not-found instead of crashing.
           if (assetPath == null) {
             return NotFoundScreen(formName: formName);
           }

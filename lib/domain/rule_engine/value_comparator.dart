@@ -1,3 +1,4 @@
+/// Compares actual vs expected value using the given operator (==, !=, >, >=, <, <=, in, contains).
 class ValueComparator {
   ValueComparator._();
 

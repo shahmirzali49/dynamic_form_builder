@@ -1,3 +1,4 @@
+/// A single condition: either a leaf (fieldId + operator + value) or a logical group (operator + conditions).
 class ConditionEntity {
   final String? fieldId;
   final String? operator;
@@ -12,6 +13,7 @@ class ConditionEntity {
   });
 }
 
+/// One action to apply when a rule’s condition is true (e.g. setVisible, setRequired, setValue, setOptions).
 class ActionEntity {
   final String action;
   final String targetFieldId;
@@ -24,6 +26,7 @@ class ActionEntity {
   });
 }
 
+/// One rule: when the condition holds, run then-actions; otherwise run else-actions.
 class RuleEntity {
   final String id;
   final ConditionEntity when;

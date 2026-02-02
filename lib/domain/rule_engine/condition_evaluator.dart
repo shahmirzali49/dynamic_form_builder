@@ -2,6 +2,7 @@ import '../entities/rule_entity.dart';
 import 'invalid_condition_exception.dart';
 import 'value_comparator.dart';
 
+/// Evaluates a condition tree: logical operators (and, or, not) or a single field comparison.
 class ConditionEvaluator {
   ConditionEvaluator._();
 
@@ -39,7 +40,7 @@ class ConditionEvaluator {
     }
 
     final fieldValue = values[fieldId];
-
+    // Leaf condition: compare actual field value with expected value using the given operator.
     return ValueComparator.compare(
       actualValue: fieldValue,
       operator: operator,

@@ -12,6 +12,7 @@ class ApplyRulesAndValidateUseCase {
     return ApplyRulesResult(ruleResult: result, errors: errors);
   }
 
+  /// Validates only visible fields using rule-derived required flags and options.
   static Map<String, String> _validateVisible(
     FormEntity form,
     RuleApplicationResult result,

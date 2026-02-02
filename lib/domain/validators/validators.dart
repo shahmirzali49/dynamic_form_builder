@@ -6,7 +6,10 @@ import 'date_validator.dart';
 import 'number_validator.dart';
 import 'text_validator.dart';
 
+/// Validates a field value (required first, then type-specific rules).
 class Validators {
+  Validators._();
+
   static final TextValidator _textValidator = TextValidator();
   static final NumberValidator _numberValidator = NumberValidator();
   static final DateValidator _dateValidator = DateValidator();

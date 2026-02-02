@@ -1,15 +1,12 @@
 import 'dart:convert';
 
+import 'package:dynamic_form_builer/core/di/injection.dart';
 import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
 import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
-import 'package:dynamic_form_builer/domain/usecases/apply_rules_and_validate_use_case.dart';
-import 'package:dynamic_form_builer/domain/usecases/get_submission_payload_use_case.dart';
-import 'package:dynamic_form_builer/domain/usecases/load_form_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/entities/submission_payload.dart';
-import '../../domain/repositories/form_repository.dart';
 import '../cubit/form_cubit.dart';
 import '../cubit/form_state.dart' as app;
 import '../widgets/dynamic_field.dart';
@@ -22,19 +19,7 @@ class FormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) {
-        final repo = context.read<FormRepository>();
-        final loadFormUseCase = LoadFormUseCase(repo);
-        final applyRulesAndValidateUseCase = ApplyRulesAndValidateUseCase();
-        final getSubmissionPayloadUseCase = GetSubmissionPayloadUseCase();
-        final cubit = FormCubit(
-          loadFormUseCase,
-          applyRulesAndValidateUseCase,
-          getSubmissionPayloadUseCase,
-        );
-        cubit.loadForm(assetPath);
-        return cubit;
-      },
+      create: (_) => getIt<FormCubit>()..loadForm(assetPath),
       child: const _FormView(),
     );
   }
@@ -141,42 +126,6 @@ class _FormView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (state.submitError != null) ...[
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        decoration: BoxDecoration(
-                          color: colorScheme.errorContainer.withValues(
-                            alpha: 0.6,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: colorScheme.error.withValues(alpha: 0.5),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.info_outline_rounded,
-                              size: 20,
-                              color: colorScheme.error,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                state.submitError!,
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: colorScheme.onErrorContainer,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                     const SizedBox(height: 24),
                     ...form.fields
                         .where((f) => state.isVisible(f.id))

@@ -18,10 +18,14 @@ class LoadFormUseCase {
   static Map<String, dynamic> _buildInitialValues(List<FieldEntity> fields) {
     final values = <String, dynamic>{};
     for (final f in fields) {
-      if (f.defaultValue != null) {
+      final hasDefault = f.defaultValue != null;
+      if (hasDefault) {
         values[f.id] = f.defaultValue;
       } else if (f.type == FieldType.checkbox) {
         values[f.id] = false;
+      } else if (f.type == FieldType.slider) {
+        final min = f.validators['min'];
+        values[f.id] = (min is num) ? min : 0;
       } else {
         values[f.id] = '';
       }
