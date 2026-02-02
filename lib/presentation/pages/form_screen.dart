@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dynamic_form_builer/core/widgets/theme_toggle_button.dart';
 import 'package:dynamic_form_builer/domain/usecases/apply_rules_and_validate_use_case.dart';
 import 'package:dynamic_form_builer/domain/usecases/get_submission_payload_use_case.dart';
 import 'package:dynamic_form_builer/domain/usecases/load_form_use_case.dart';
@@ -46,7 +47,10 @@ class _FormView extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Form')),
+      appBar: AppBar(
+        title: const Text('Form'),
+        actions: const [ThemeToggleButton()],
+      ),
       body: BlocBuilder<FormCubit, app.FormState>(
         builder: (context, state) {
           if (state.isLoading && state.form == null) {
@@ -143,10 +147,12 @@ class _FormView extends StatelessWidget {
                           vertical: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: colorScheme.errorContainer.withOpacity(0.6),
+                          color: colorScheme.errorContainer.withValues(
+                            alpha: 0.6,
+                          ),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: colorScheme.error.withOpacity(0.5),
+                            color: colorScheme.error.withValues(alpha: 0.5),
                           ),
                         ),
                         child: Row(
@@ -198,7 +204,7 @@ class _FormView extends StatelessWidget {
                   color: colorScheme.surface,
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.shadow.withOpacity(0.06),
+                      color: colorScheme.shadow.withValues(alpha: 0.06),
                       blurRadius: 12,
                       offset: const Offset(0, -4),
                     ),
@@ -246,9 +252,11 @@ class _SubmissionOutput extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest.withOpacity(0.8),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.8),
         border: Border(
-          top: BorderSide(color: colorScheme.outlineVariant.withOpacity(0.5)),
+          top: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+          ),
         ),
       ),
       child: Column(
@@ -279,17 +287,10 @@ class _SubmissionOutput extends StatelessWidget {
               color: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: colorScheme.outlineVariant.withOpacity(0.5),
+                color: colorScheme.outlineVariant.withValues(alpha: 0.5),
               ),
             ),
-            child: SelectableText(
-              jsonString,
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                height: 1.5,
-              ),
-            ),
+            child: SelectableText(jsonString, style: theme.textTheme.bodySmall),
           ),
         ],
       ),

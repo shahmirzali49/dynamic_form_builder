@@ -103,14 +103,14 @@ class _DynamicFieldWidget extends StatelessWidget {
           field: field,
           value: value == true,
           error: error,
-          onChanged: (v) => onChanged(v),
+          onChanged: onChanged,
         );
       case FieldType.date:
         return DateFieldBuilder(
           field: field,
           value: value,
           error: error,
-          onChanged: (v) => onChanged(v),
+          onChanged: onChanged,
         );
       case FieldType.radio:
         return RadioFieldBuilder(

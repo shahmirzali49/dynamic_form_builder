@@ -2,8 +2,6 @@ import '../../domain/entities/form_entity.dart';
 import 'field_dto.dart';
 import 'rule_dto.dart';
 
-/// DTO for the root form (JSON shape → domain entity).
-/// Required fields are non-nullable; invalid JSON fails at parse time.
 class FormDto {
   final String formId;
   final String title;

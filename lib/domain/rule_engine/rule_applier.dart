@@ -6,7 +6,7 @@ import 'package:dynamic_form_builer/domain/entities/rule_entity.dart';
 
 class RuleApplier {
   RuleApplier._();
-  
+
   static RuleApplicationResult apply(
     List<RuleEntity> rules,
     List<FieldEntity> fields,
@@ -39,16 +39,16 @@ class RuleApplier {
 
       for (final action in actions) {
         switch (action.action) {
-          case 'setvisible':
+          case 'setVisible':
             result.visibility[action.targetFieldId] = action.value == true;
             break;
-          case 'setrequired':
+          case 'setRequired':
             result.requiredFlags[action.targetFieldId] = action.value == true;
             break;
-          case 'setvalue':
+          case 'setValue':
             result.values[action.targetFieldId] = action.value;
             break;
-          case 'setoptions':
+          case 'setOptions':
             if (action.value is List) {
               result.options[action.targetFieldId] = (action.value as List)
                   .map((e) => e.toString())
