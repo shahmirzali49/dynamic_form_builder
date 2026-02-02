@@ -1,0 +1,36 @@
+{
+  "appTitle": "Dynamic Form Builder",
+  "selectAForm": "Select a form",
+  "loadFormFrom": "Load form from {path}",
+  "@loadFormFrom": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "formTitleNewConnectionRequest": "New Connection Request",
+  "formTitleTravelRequest": "Travel Request",
+  "formTitleFeedbackRegistration": "Feedback & Registration",
+  "form": "Form",
+  "loadingForm": "Loading form…",
+  "unknownError": "Unknown error",
+  "back": "Back",
+  "fillFieldsHint": "Fill in the fields below. Validation updates as you type.",
+  "submit": "Submit",
+  "submissionOutput": "Submission output",
+  "formNotFound": "Form \"{formName}\" not found",
+  "@formNotFound": {
+    "placeholders": {
+      "formName": {
+        "type": "String"
+      }
+    }
+  },
+  "pageNotFound": "Page not found",
+  "error": "Error",
+  "goToHome": "Go to Home",
+  "switchToLightMode": "Switch to light mode",
+  "switchToDarkMode": "Switch to dark mode",
+  "selectDate": "Select date"
+}

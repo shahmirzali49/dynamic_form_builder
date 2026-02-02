@@ -5,8 +5,6 @@ import 'package:dynamic_form_builer/domain/rule_engine/rule_application_result.d
 import 'package:dynamic_form_builer/domain/rule_engine/rule_applier.dart';
 import 'package:dynamic_form_builer/domain/validators/validators.dart';
 
-
-
 class ApplyRulesAndValidateUseCase {
   ApplyRulesResult call(FormEntity form, Map<String, dynamic> currentValues) {
     final result = RuleApplier.apply(form.rules, form.fields, currentValues);

@@ -1,14 +1,27 @@
 import 'package:dynamic_form_builer/core/constants/app_constants.dart';
 import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
+import 'package:dynamic_form_builer/core/models/form_info.dart';
 import 'package:dynamic_form_builer/core/navigation/app_router.dart';
 import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
 import 'package:dynamic_form_builer/presentation/widgets/form_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  String _formTitle(FormInfo formInfo, dynamic locale) {
+    switch (formInfo.urlName) {
+      case 'customer_onboarding':
+        return locale.formTitleNewConnectionRequest;
+      case 'travel_request':
+        return locale.formTitleTravelRequest;
+      case 'feedback_and_registration':
+        return locale.formTitleFeedbackRegistration;
+      default:
+        return formInfo.title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +44,7 @@ class HomeScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
               title: Text(
-                AppConstants.appTitle,
+                context.locale.appTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -46,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Select a form',
+                    context.locale.selectAForm,
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w500,
@@ -61,8 +74,10 @@ class HomeScreen extends StatelessWidget {
                         bottom: index < AppConstants.forms.length - 1 ? 12 : 0,
                       ),
                       child: FormCard(
-                        title: formInfo.title,
-                        subtitle: 'Load form from ${formInfo.assetPath}',
+                        title: _formTitle(formInfo, context.locale),
+                        subtitle: context.locale.loadFormFrom(
+                          formInfo.assetPath,
+                        ),
                         onTap: () =>
                             context.push(AppRouter.formPath(formInfo.urlName)),
                       ),

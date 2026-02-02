@@ -73,7 +73,7 @@ class FormCubit extends Cubit<FormState> {
       emit(
         state.copyWith(
           errors: applyResult.errors,
-          submitError: 'Please fix the errors below.',
+          submitError: 'Fix the errors below.',
           clearSubmissionResult: true,
           submittedOnce: true,
         ),

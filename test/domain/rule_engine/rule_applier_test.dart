@@ -48,24 +48,24 @@ void main() {
             ),
             then: [
               ActionEntity(
-                action: 'setvisible',
+                action: 'setVisible',
                 targetFieldId: 'companyName',
                 value: true,
               ),
               ActionEntity(
-                action: 'setrequired',
+                action: 'setRequired',
                 targetFieldId: 'companyName',
                 value: true,
               ),
             ],
             elseActions: [
               ActionEntity(
-                action: 'setvisible',
+                action: 'setVisible',
                 targetFieldId: 'companyName',
                 value: false,
               ),
               ActionEntity(
-                action: 'setrequired',
+                action: 'setRequired',
                 targetFieldId: 'companyName',
                 value: false,
               ),
@@ -93,14 +93,14 @@ void main() {
           ),
           then: [
             ActionEntity(
-              action: 'setvisible',
+              action: 'setVisible',
               targetFieldId: 'companyName',
               value: true,
             ),
           ],
           elseActions: [
             ActionEntity(
-              action: 'setvisible',
+              action: 'setVisible',
               targetFieldId: 'companyName',
               value: false,
             ),
@@ -126,7 +126,7 @@ void main() {
           ),
           then: [
             ActionEntity(
-              action: 'setvalue',
+              action: 'setValue',
               targetFieldId: 'companyName',
               value: 'ACME',
             ),
@@ -153,7 +153,7 @@ void main() {
           ),
           then: [
             ActionEntity(
-              action: 'setoptions',
+              action: 'setOptions',
               targetFieldId: 'companyName',
               value: ['A', 'B', 'C'],
             ),

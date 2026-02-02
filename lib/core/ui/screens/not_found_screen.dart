@@ -1,15 +1,10 @@
+import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
 import 'package:dynamic_form_builer/core/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
-
 class NotFoundScreen extends StatelessWidget {
-  const NotFoundScreen({
-    super.key,
-    this.message,
-    this.formName,
-  });
+  const NotFoundScreen({super.key, this.message, this.formName});
 
   final String? message;
   final String? formName;
@@ -18,11 +13,14 @@ class NotFoundScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final displayMessage = message ??
-        (formName != null ? 'Form "$formName" not found' : 'Page not found');
+    final displayMessage =
+        message ??
+        (formName != null
+            ? context.locale.formNotFound(formName!)
+            : context.locale.pageNotFound);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Error')),
+      appBar: AppBar(title: Text(context.locale.error)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +38,7 @@ class NotFoundScreen extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () => context.go(AppRouter.home),
               icon: const Icon(Icons.home),
-              label: const Text('Go to Home'),
+              label: Text(context.locale.goToHome),
             ),
           ],
         ),

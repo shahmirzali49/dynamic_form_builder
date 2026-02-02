@@ -1,3 +1,4 @@
+import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
 import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -46,7 +47,7 @@ class DateFieldBuilder extends StatelessWidget {
           errorText: error,
           suffixIcon: const Icon(Icons.calendar_today),
         ),
-        child: Text(display.isEmpty ? 'Select date' : display),
+        child: Text(display.isEmpty ? context.locale.selectDate : display),
       ),
     );
   }

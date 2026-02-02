@@ -1,3 +1,4 @@
+import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
 import 'package:dynamic_form_builer/core/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,9 @@ class ThemeToggleButton extends StatelessWidget {
           icon: Icon(
             isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
           ),
-          tooltip: isDark ? 'Switch to light mode' : 'Switch to dark mode',
+          tooltip: isDark
+              ? context.locale.switchToLightMode
+              : context.locale.switchToDarkMode,
         );
       },
     );

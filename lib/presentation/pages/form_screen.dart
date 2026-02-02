@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
 import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
 import 'package:dynamic_form_builer/domain/usecases/apply_rules_and_validate_use_case.dart';
 import 'package:dynamic_form_builer/domain/usecases/get_submission_payload_use_case.dart';
@@ -49,7 +50,7 @@ class _FormView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Form'),
+        title: Text(context.locale.form),
         actions: const [ThemeToggleButton()],
       ),
       body: BlocBuilder<FormCubit, app.FormState>(
@@ -69,7 +70,7 @@ class _FormView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Loading form…',
+                    context.locale.loadingForm,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -92,7 +93,7 @@ class _FormView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      state.loadError ?? 'Unknown error',
+                      state.loadError ?? context.locale.unknownError,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         color: colorScheme.onSurface,
@@ -102,7 +103,7 @@ class _FormView extends StatelessWidget {
                     FilledButton.icon(
                       onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back_rounded, size: 20),
-                      label: const Text('Back'),
+                      label: Text(context.locale.back),
                     ),
                   ],
                 ),
@@ -131,7 +132,7 @@ class _FormView extends StatelessWidget {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              'Fill in the fields below. Validation updates as you type.',
+                              context.locale.fillFieldsHint,
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: colorScheme.onSurfaceVariant,
                               ),
@@ -222,7 +223,7 @@ class _FormView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: const Text('Submit'),
+                      child: Text(context.locale.submit),
                     ),
                   ),
                 ),
@@ -273,7 +274,7 @@ class _SubmissionOutput extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                'Submission output',
+                context.locale.submissionOutput,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
