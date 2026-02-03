@@ -1,6 +1,27 @@
 # Dynamic Form Builder
 
-A Flutter application that renders forms from JSON definitions. Forms support validation, conditional visibility, and multiple field types. The app runs on mobile, web, and desktop.
+A Flutter app that renders forms from JSON definitions. The form engine is available as a **package** (`packages/dynamic_form_builder`) for use in other projects.
+
+---
+
+## Using the package
+
+To use the form logic in another project:
+
+```yaml
+dependencies:
+  dynamic_form_builder:
+    path: packages/dynamic_form_builder
+```
+
+```dart
+import 'package:dynamic_form_builder/dynamic_form_builder.dart';
+
+// No setup in main(). Use the widget where needed:
+DynamicFormScreen(assetPath: 'assets/forms/my_form.json')
+```
+
+See `packages/dynamic_form_builder/README.md` for details.
 
 ---
 
@@ -93,12 +114,16 @@ The project follows a **layered architecture** (data → domain → presentation
 
 ## How to run tests
 
-All tests are in the `test/` folder and target domain logic (rule engine, validators, use cases).
-
-From the project root:
+All form-related tests live in the **package** (`packages/dynamic_form_builder`). From the project root:
 
 ```bash
-flutter test
+flutter test packages/dynamic_form_builder
+```
+
+Or from the package directory:
+
+```bash
+cd packages/dynamic_form_builder && flutter test
 ```
 
 

@@ -1,0 +1,35 @@
+import 'package:dynamic_form_builder/core/enums/field_types.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/load_form_result.dart';
+import 'package:dynamic_form_builder/domain/repositories/form_repository.dart';
+import 'package:dynamic_form_builder/domain/rule_engine/rule_applier.dart';
+
+class LoadFormUseCase {
+  LoadFormUseCase(this._repository);
+
+  final FormRepository _repository;
+  Future<LoadFormResult> call(String assetPath) async {
+    final form = await _repository.loadForm(assetPath);
+    final initialValues = _buildInitialValues(form.fields);
+    final result = RuleApplier.apply(form.rules, form.fields, initialValues);
+    return LoadFormResult(form: form, ruleResult: result);
+  }
+
+  static Map<String, dynamic> _buildInitialValues(List<FieldEntity> fields) {
+    final values = <String, dynamic>{};
+    for (final f in fields) {
+      final hasDefault = f.defaultValue != null;
+      if (hasDefault) {
+        values[f.id] = f.defaultValue;
+      } else if (f.type == FieldType.checkbox) {
+        values[f.id] = false;
+      } else if (f.type == FieldType.slider) {
+        final min = f.validators['min'];
+        values[f.id] = (min is num) ? min : 0;
+      } else {
+        values[f.id] = '';
+      }
+    }
+    return values;
+  }
+}

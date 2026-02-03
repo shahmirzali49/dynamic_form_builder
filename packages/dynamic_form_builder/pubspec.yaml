@@ -1,0 +1,19 @@
+name: dynamic_form_builder
+description: JSON-driven dynamic form builder for Flutter with validation and conditional rules.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.8
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

@@ -24,6 +24,9 @@ dependencies:
   go_router: ^17.0.1
   get_it: ^9.2.0
 
+  dynamic_form_builder:
+    path: packages/dynamic_form_builder
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
