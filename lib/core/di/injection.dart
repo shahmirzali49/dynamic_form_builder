@@ -11,27 +11,42 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 void setupInjection() {
-  getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
+  if (!getIt.isRegistered<ThemeCubit>()) {
+    getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
+  }
 
-  getIt.registerLazySingleton<FormDatasource>(() => FormDatasourceImpl());
-  getIt.registerLazySingleton<FormRepository>(
-    () => FormRepositoryImpl(getIt<FormDatasource>()),
-  );
+  if (!getIt.isRegistered<FormDatasource>()) {
+    getIt.registerLazySingleton<FormDatasource>(() => FormDatasourceImpl());
+  }
+  if (!getIt.isRegistered<FormRepository>()) {
+    getIt.registerLazySingleton<FormRepository>(
+      () => FormRepositoryImpl(getIt<FormDatasource>()),
+    );
+  }
 
-  getIt.registerLazySingleton<LoadFormUseCase>(
-    () => LoadFormUseCase(getIt<FormRepository>()),
-  );
-  getIt.registerLazySingleton<ApplyRulesAndValidateUseCase>(
-    () => ApplyRulesAndValidateUseCase(),
-  );
-  getIt.registerLazySingleton<GetSubmissionPayloadUseCase>(
-    () => GetSubmissionPayloadUseCase(),
-  );
-  getIt.registerLazySingleton<FormCubit>(
-    () => FormCubit(
-      getIt<LoadFormUseCase>(),
-      getIt<ApplyRulesAndValidateUseCase>(),
-      getIt<GetSubmissionPayloadUseCase>(),
-    ),
-  );
+  if (!getIt.isRegistered<LoadFormUseCase>()) {
+    getIt.registerLazySingleton<LoadFormUseCase>(
+      () => LoadFormUseCase(getIt<FormRepository>()),
+    );
+  }
+  if (!getIt.isRegistered<ApplyRulesAndValidateUseCase>()) {
+    getIt.registerLazySingleton<ApplyRulesAndValidateUseCase>(
+      () => ApplyRulesAndValidateUseCase(),
+    );
+  }
+  if (!getIt.isRegistered<GetSubmissionPayloadUseCase>()) {
+    getIt.registerLazySingleton<GetSubmissionPayloadUseCase>(
+      () => GetSubmissionPayloadUseCase(),
+    );
+  }
+  if (!getIt.isRegistered<FormCubit>()) {
+    // Per-screen state holder: every request gets a fresh Cubit instance.
+    getIt.registerFactory<FormCubit>(
+      () => FormCubit(
+        getIt<LoadFormUseCase>(),
+        getIt<ApplyRulesAndValidateUseCase>(),
+        getIt<GetSubmissionPayloadUseCase>(),
+      ),
+    );
+  }
 }

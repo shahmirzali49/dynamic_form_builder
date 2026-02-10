@@ -213,5 +213,34 @@ void main() {
         expect(result.isValid, true);
       });
     });
+
+    group('selection validators', () {
+      test('dropdown returns invalid when value is not in options', () {
+        final field = FieldEntity(
+          id: 'department',
+          label: 'Department',
+          type: FieldType.dropdown,
+          required: false,
+          options: const ['Engineering', 'Sales'],
+          validators: const {},
+        );
+        final result = Validators.validateField(field, 'Marketing');
+        expect(result.isValid, false);
+        expect(result.errorMessage, 'Please select a valid option');
+      });
+
+      test('radio returns valid when value is in options', () {
+        final field = FieldEntity(
+          id: 'priority',
+          label: 'Priority',
+          type: FieldType.radio,
+          required: false,
+          options: const ['Low', 'Medium', 'High'],
+          validators: const {},
+        );
+        final result = Validators.validateField(field, 'High');
+        expect(result.isValid, true);
+      });
+    });
   });
 }

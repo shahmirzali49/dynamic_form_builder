@@ -19,7 +19,10 @@ class DropdownFieldBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentValue = options.contains(value) ? value : null;
     return DropdownButtonFormField<String>(
+      key: ValueKey('${field.id}::${options.join('|')}::$currentValue'),
+      initialValue: currentValue,
       decoration: InputDecoration(labelText: field.label, errorText: error),
       items: options
           .map((e) => DropdownMenuItem(value: e, child: Text(e)))

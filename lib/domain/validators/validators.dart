@@ -54,6 +54,11 @@ class Validators {
         });
       case FieldType.dropdown:
       case FieldType.radio:
+        final normalized = value.toString();
+        if (!field.options.contains(normalized)) {
+          return ValidationResult.invalid('Please select a valid option');
+        }
+        return ValidationResult.valid;
       case FieldType.checkbox:
         return ValidationResult.valid;
     }

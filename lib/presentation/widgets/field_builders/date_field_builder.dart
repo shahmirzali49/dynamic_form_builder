@@ -25,8 +25,21 @@ class DateFieldBuilder extends StatelessWidget {
     final display = date != null ? DateFormat.yMMMd().format(date) : '';
     return InkWell(
       onTap: () async {
-        final firstDate = _parseDate(field.validators['dateMin'] as String);
-        final lastDate = _parseDate(field.validators['dateMax'] as String);
+        final now = DateTime.now();
+        var firstDate = _parseDateOrFallback(
+          field.validators['dateMin'] as String?,
+          DateTime(now.year - 100, 1, 1),
+        );
+        var lastDate = _parseDateOrFallback(
+          field.validators['dateMax'] as String?,
+          DateTime(now.year + 100, 12, 31),
+        );
+        if (lastDate.isBefore(firstDate)) {
+          final temp = firstDate;
+          firstDate = lastDate;
+          lastDate = temp;
+        }
+
         DateTime initial = date ?? DateTime.now();
         if (initial.isBefore(firstDate)) initial = firstDate;
         if (initial.isAfter(lastDate)) initial = lastDate;
@@ -52,16 +65,10 @@ class DateFieldBuilder extends StatelessWidget {
     );
   }
 
-  DateTime _parseDate(String? s) {
-    if (s == null || s.isEmpty) {
-      throw ArgumentError(
-        'Date string (dateMin/dateMax) cannot be null or empty',
-      );
-    }
-    final result = DateTime.tryParse(s);
-    if (result == null) {
-      throw FormatException('Invalid date format: "$s"');
-    }
-    return result;
+  DateTime _parseDateOrFallback(String? input, DateTime fallback) {
+    if (input == null || input.isEmpty) return fallback;
+    final parsed = DateTime.tryParse(input);
+    if (parsed == null) return fallback;
+    return DateTime(parsed.year, parsed.month, parsed.day);
   }
 }

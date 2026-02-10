@@ -1,36 +1,28 @@
-import 'package:equatable/equatable.dart';
-
 import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
 import 'package:dynamic_form_builder/domain/entities/form_entity.dart';
 import 'package:dynamic_form_builder/domain/entities/submission_payload.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class FormState extends Equatable {
-  final FormEntity? form;
-  final Map<String, dynamic> values;
-  final Map<String, String> errors;
-  final Map<String, bool> visibility;
-  final Map<String, bool> requiredFlags;
-  final Map<String, List<String>> optionsOverrides;
-  final bool isLoading;
-  final String? loadError;
+part 'form_state.freezed.dart';
 
-  final SubmissionPayload? submissionResult;
-  final Set<String> touchedFields;
-  final bool submittedOnce;
+@freezed
+abstract class FormState with _$FormState {
+  const FormState._();
 
-  const FormState({
-    this.form,
-    this.values = const {},
-    this.errors = const {},
-    this.visibility = const {},
-    this.requiredFlags = const {},
-    this.optionsOverrides = const {},
-    this.isLoading = false,
-    this.loadError,
-    this.submissionResult,
-    this.touchedFields = const <String>{},
-    this.submittedOnce = false,
-  });
+  const factory FormState({
+    FormEntity? form,
+    @Default(<String, dynamic>{}) Map<String, dynamic> values,
+    @Default(<String, String>{}) Map<String, String> errors,
+    @Default(<String, bool>{}) Map<String, bool> visibility,
+    @Default(<String, bool>{}) Map<String, bool> requiredFlags,
+    @Default(<String, List<String>>{})
+    Map<String, List<String>> optionsOverrides,
+    @Default(false) bool isLoading,
+    String? loadError,
+    SubmissionPayload? submissionResult,
+    @Default(<String>{}) Set<String> touchedFields,
+    @Default(false) bool submittedOnce,
+  }) = _FormState;
 
   bool get isLoaded => form != null && !isLoading;
   bool get hasLoadError => loadError != null;
@@ -58,52 +50,4 @@ class FormState extends Equatable {
     }
     return null;
   }
-
-  FormState copyWith({
-    FormEntity? form,
-    Map<String, dynamic>? values,
-    Map<String, String>? errors,
-    Map<String, bool>? visibility,
-    Map<String, bool>? requiredFlags,
-    Map<String, List<String>>? optionsOverrides,
-    bool? isLoading,
-    String? loadError,
-    SubmissionPayload? submissionResult,
-
-    /// When true, submission result is cleared (e.g. after a new value change).
-    bool clearSubmissionResult = false,
-    Set<String>? touchedFields,
-    bool? submittedOnce,
-  }) {
-    return FormState(
-      form: form ?? this.form,
-      values: values ?? this.values,
-      errors: errors ?? this.errors,
-      visibility: visibility ?? this.visibility,
-      requiredFlags: requiredFlags ?? this.requiredFlags,
-      optionsOverrides: optionsOverrides ?? this.optionsOverrides,
-      isLoading: isLoading ?? this.isLoading,
-      loadError: loadError ?? this.loadError,
-      submissionResult: clearSubmissionResult
-          ? null
-          : (submissionResult ?? this.submissionResult),
-      touchedFields: touchedFields ?? this.touchedFields,
-      submittedOnce: submittedOnce ?? this.submittedOnce,
-    );
-  }
-
-  @override
-  List<Object?> get props => [
-    form,
-    values,
-    errors,
-    visibility,
-    requiredFlags,
-    optionsOverrides,
-    isLoading,
-    loadError,
-    submissionResult,
-    touchedFields,
-    submittedOnce,
-  ];
 }

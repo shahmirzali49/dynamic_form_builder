@@ -18,7 +18,7 @@ class FormCubit extends Cubit<FormState> {
   final GetSubmissionPayloadUseCase _getSubmissionPayloadUseCase;
 
   Future<void> loadForm(String assetPath) async {
-    emit(state.copyWith(isLoading: true, loadError: null));
+    emit(const FormState(isLoading: true));
     try {
       final result = await _loadFormUseCase(assetPath);
       emit(
@@ -51,7 +51,7 @@ class FormCubit extends Cubit<FormState> {
         requiredFlags: applyResult.ruleResult.requiredFlags,
         optionsOverrides: applyResult.ruleResult.options,
         errors: applyResult.errors,
-        clearSubmissionResult: true,
+        submissionResult: null,
         touchedFields: touched,
       ),
     );
@@ -75,7 +75,7 @@ class FormCubit extends Cubit<FormState> {
       emit(
         state.copyWith(
           errors: applyResult.errors,
-          clearSubmissionResult: true,
+          submissionResult: null,
           submittedOnce: true,
         ),
       );
