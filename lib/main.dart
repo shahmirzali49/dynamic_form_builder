@@ -1,9 +1,9 @@
-import 'package:dynamic_form_builer/core/di/injection.dart';
-import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
-import 'package:dynamic_form_builer/core/l10n/app_localizations.dart';
-import 'package:dynamic_form_builer/core/navigation/app_router.dart';
-import 'package:dynamic_form_builer/core/theme/app_theme.dart';
-import 'package:dynamic_form_builer/core/theme/theme_cubit.dart';
+import 'package:dynamic_form_builder/core/di/injection.dart';
+import 'package:dynamic_form_builder/core/extensions/context_extensions.dart';
+import 'package:dynamic_form_builder/core/l10n/app_localizations.dart';
+import 'package:dynamic_form_builder/core/navigation/app_router.dart';
+import 'package:dynamic_form_builder/core/theme/app_theme.dart';
+import 'package:dynamic_form_builder/core/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

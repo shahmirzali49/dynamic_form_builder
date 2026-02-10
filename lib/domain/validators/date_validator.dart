@@ -1,4 +1,4 @@
-import 'package:dynamic_form_builer/domain/entities/validation_result.dart';
+import 'package:dynamic_form_builder/domain/entities/validation_result.dart';
 import 'field_validator.dart';
 
 class DateValidator implements FieldValidator {

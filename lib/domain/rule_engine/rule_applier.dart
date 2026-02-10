@@ -1,8 +1,8 @@
-import 'package:dynamic_form_builer/domain/rule_engine/condition_evaluator.dart';
-import 'package:dynamic_form_builer/domain/rule_engine/rule_application_result.dart';
+import 'package:dynamic_form_builder/domain/rule_engine/condition_evaluator.dart';
+import 'package:dynamic_form_builder/domain/rule_engine/rule_application_result.dart';
 
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
-import 'package:dynamic_form_builer/domain/entities/rule_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/rule_entity.dart';
 
 /// Applies all rules in order: evaluates each condition, then runs then/else actions to update visibility, required, values, options.
 class RuleApplier {

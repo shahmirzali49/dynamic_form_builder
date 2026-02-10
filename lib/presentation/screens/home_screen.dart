@@ -1,9 +1,9 @@
-import 'package:dynamic_form_builer/core/constants/app_constants.dart';
-import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
-import 'package:dynamic_form_builer/core/l10n/app_localizations_extensions.dart';
-import 'package:dynamic_form_builer/core/navigation/app_router.dart';
-import 'package:dynamic_form_builer/core/ui/widgets/theme_toggle_button.dart';
-import 'package:dynamic_form_builer/presentation/widgets/form_card.dart';
+import 'package:dynamic_form_builder/core/constants/app_constants.dart';
+import 'package:dynamic_form_builder/core/extensions/context_extensions.dart';
+import 'package:dynamic_form_builder/core/l10n/app_localizations_extensions.dart';
+import 'package:dynamic_form_builder/core/navigation/app_router.dart';
+import 'package:dynamic_form_builder/core/ui/widgets/theme_toggle_button.dart';
+import 'package:dynamic_form_builder/presentation/widgets/form_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -56,19 +56,17 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     spacing: 12,
                     children: AppConstants.forms.asMap().entries.map((entry) {
-                   
-                    final formInfo = entry.value;
-                    return FormCard(
-                      title: context.locale.formTitleFor(formInfo),
-                      subtitle: context.locale.loadFormFrom(
-                        formInfo.assetPath,
-                      ),
-                      onTap: () =>
-                          context.push(AppRouter.formPath(formInfo.urlName)),
-                    );
-                  }).toList(),
+                      final formInfo = entry.value;
+                      return FormCard(
+                        title: context.locale.formTitleFor(formInfo),
+                        subtitle: context.locale.loadFormFrom(
+                          formInfo.assetPath,
+                        ),
+                        onTap: () =>
+                            context.push(AppRouter.formPath(formInfo.urlName)),
+                      );
+                    }).toList(),
                   ),
-                 
                 ],
               ),
             ),

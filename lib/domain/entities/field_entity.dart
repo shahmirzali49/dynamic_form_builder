@@ -1,4 +1,4 @@
-import 'package:dynamic_form_builer/core/enums/field_types.dart';
+import 'package:dynamic_form_builder/core/enums/field_types.dart';
 
 class FieldEntity {
   final String id;

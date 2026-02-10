@@ -1,4 +1,4 @@
-import 'package:dynamic_form_builer/core/l10n/app_localizations.dart';
+import 'package:dynamic_form_builder/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 extension ContextExtensions on BuildContext {

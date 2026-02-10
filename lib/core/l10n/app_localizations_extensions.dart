@@ -1,4 +1,4 @@
-import 'package:dynamic_form_builer/core/models/form_info.dart';
+import 'package:dynamic_form_builder/core/models/form_info.dart';
 
 import 'app_localizations.dart';
 

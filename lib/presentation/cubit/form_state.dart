@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
-import 'package:dynamic_form_builer/domain/entities/form_entity.dart';
-import 'package:dynamic_form_builer/domain/entities/submission_payload.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/form_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/submission_payload.dart';
 
 class FormState extends Equatable {
   final FormEntity? form;

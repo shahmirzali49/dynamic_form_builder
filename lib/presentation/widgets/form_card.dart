@@ -1,4 +1,4 @@
-import 'package:dynamic_form_builer/core/extensions/context_extensions.dart';
+import 'package:dynamic_form_builder/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
 class FormCard extends StatelessWidget {
@@ -12,7 +12,7 @@ class FormCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final VoidCallback onTap;
-  
+
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;

@@ -1,6 +1,5 @@
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
 import 'package:flutter/material.dart';
-
 
 class CheckboxFieldBuilder extends StatelessWidget {
   const CheckboxFieldBuilder({
@@ -19,9 +18,7 @@ class CheckboxFieldBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InputDecorator(
-      decoration: InputDecoration(
-        errorText: error,
-      ),
+      decoration: InputDecoration(errorText: error),
       child: CheckboxListTile(
         title: Text(field.label),
         value: value,

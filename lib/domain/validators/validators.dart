@@ -1,6 +1,6 @@
-import 'package:dynamic_form_builer/core/enums/field_types.dart';
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
-import 'package:dynamic_form_builer/domain/entities/validation_result.dart';
+import 'package:dynamic_form_builder/core/enums/field_types.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/validation_result.dart';
 
 import 'date_validator.dart';
 import 'number_validator.dart';

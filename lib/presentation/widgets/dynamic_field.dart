@@ -1,5 +1,5 @@
-import 'package:dynamic_form_builer/core/enums/field_types.dart';
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/core/enums/field_types.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'field_builders/checkbox_field_builder.dart';

@@ -1,7 +1,7 @@
-import 'package:dynamic_form_builer/core/ui/screens/not_found_screen.dart';
-import 'package:dynamic_form_builer/core/utils/form_utils.dart';
-import 'package:dynamic_form_builer/presentation/screens/form_screen.dart';
-import 'package:dynamic_form_builer/presentation/screens/home_screen.dart';
+import 'package:dynamic_form_builder/core/ui/screens/not_found_screen.dart';
+import 'package:dynamic_form_builder/core/utils/form_utils.dart';
+import 'package:dynamic_form_builder/presentation/screens/form_screen.dart';
+import 'package:dynamic_form_builder/presentation/screens/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 /// Declares app routes: home and dynamic form by URL name (form name must exist in AppConstants).

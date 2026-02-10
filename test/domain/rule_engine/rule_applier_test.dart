@@ -1,7 +1,7 @@
-import 'package:dynamic_form_builer/core/enums/field_types.dart';
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
-import 'package:dynamic_form_builer/domain/entities/rule_entity.dart';
-import 'package:dynamic_form_builer/domain/rule_engine/rule_applier.dart';
+import 'package:dynamic_form_builder/core/enums/field_types.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/rule_entity.dart';
+import 'package:dynamic_form_builder/domain/rule_engine/rule_applier.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

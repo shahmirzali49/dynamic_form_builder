@@ -1,6 +1,5 @@
-import 'package:dynamic_form_builer/domain/entities/field_entity.dart';
+import 'package:dynamic_form_builder/domain/entities/field_entity.dart';
 import 'package:flutter/material.dart';
-
 
 class SliderFieldBuilder extends StatelessWidget {
   const SliderFieldBuilder({
@@ -26,10 +25,7 @@ class SliderFieldBuilder extends StatelessWidget {
         : 100.0;
     final clamped = value.toDouble().clamp(min, max);
     return InputDecorator(
-      decoration: InputDecoration(
-        labelText: field.label,
-        errorText: error,
-      ),
+      decoration: InputDecoration(labelText: field.label, errorText: error),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
